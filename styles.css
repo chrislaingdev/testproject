@@ -3,6 +3,14 @@ body {
 
 }
 
+.table {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh
+}
+
+
 .card img{
   
   width: 100px;
@@ -12,18 +20,12 @@ body {
 .card {
   
   background-color: blueviolet;
-  
-
-
-}
-
-.table {
-  
-  background-color: red;
   display: flex;
-  align-items: center;
+  
+
 
 }
+
 
 
 
