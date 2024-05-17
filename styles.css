@@ -7,23 +7,25 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh
+  height: 100vh;
+  
+}
+
+.hand{
+  background-color: blue;
+  display: flex;
+  
 }
 
 
 .card img{
-  
   width: 100px;
-  
 }
 
 .card {
-  
+  display: inline-flex;
   background-color: blueviolet;
-  display: flex;
-  
-
-
+  margin: 6px;
 }
 
 
