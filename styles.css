@@ -4,6 +4,7 @@ body {
 }
 
 .card img{
+  
   width: 100px;
   
 }
@@ -11,14 +12,17 @@ body {
 .card {
   
   background-color: blueviolet;
+  
 
+
+}
 
 .table {
-
+  
   background-color: red;
   display: flex;
-  justify-content: center;
   align-items: center;
+
 }
 
 
