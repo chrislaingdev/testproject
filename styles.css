@@ -12,7 +12,7 @@ body {
 }
 
 .hand{
-  background-color: blue;
+
   display: flex;
   
 }
@@ -24,8 +24,11 @@ body {
 
 .card {
   display: inline-flex;
-  background-color: blueviolet;
   margin: 6px;
+  transition: box-shadow .25s;
+}
+.card:hover{
+  box-shadow: 5px 10px 8px;
 }
 
 
