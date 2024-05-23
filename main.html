@@ -5,12 +5,25 @@
 
   </head>
   <body>
-    <div>
-      <button onclick="addCard()">ADD</button>
-    </div>
+    
     <div class="table">
 
       <div class="hand" id="hand">
+        
+
+      </div>
+
+    </div>
+    <div class="Ui">
+      <div>
+        <button onclick="deck1.dealNextCards()">ADD</button>
+        <button onclick="deck1.determineRound()">NEXT</button>
+      </div>
+      <h2 id="message-display">Game Text Here</h2>
+    </div>
+    <div class="opponent-table">
+
+      <div class="hand" id="opponent-hand">
         
 
       </div>
