@@ -22,6 +22,8 @@ class Deck{
     this.opponentDeck = [];
     this.playerCard = undefined;
     this.opponentCard = undefined;
+    this.warPile = [];
+    this.warPileEmpty = true;
     this.splitDeck();
 
   }
@@ -74,52 +76,104 @@ class Deck{
     console.log(this.opponentDeck);
   }
 
-  dealNextCards(){
+  dealNextCards(clear = true, front = true, displayOnly = false){
+    if (clear){
+      clearUI();
+    }
     
     this.playerCard = this.playerDeck.pop();
     console.log("player card: ", this.playerCard);
     this.opponentCard = this.opponentDeck.pop();
     console.log("opponent card: ",this.opponentCard);
-    this.displayRoud();
+    this.displayRoud(front, displayOnly);
   }
 
 
-  displayRoud(){
-    let clearDiv1 = document.getElementById('hand');
-    let clearDiv2 = document.getElementById('opponent-hand');
-    let clearMessage = document.getElementById('message-display');
-    clearDiv1.innerHTML = '';
-    clearDiv2.innerHTML = '';
-    clearMessage.innerHTML = '';
-    
+  displayRoud(front = true, displayOnly = false){
+    let playerImage = this.playerCard.frontImage;
+    let opponentImage = this.opponentCard.frontImage;
+    if (!front ){
+      playerImage = this.playerCard.backImage;
+      opponentImage = this.opponentCard.backImage;
+    }
+
+
     var div1 = document.createElement('div');
-    div1.innerHTML = `<img src=${this.playerCard.frontImage}>`
+    div1.innerHTML = `<img src=${playerImage}>`
     div1.setAttribute('class', 'card');
     document.getElementById('hand').appendChild(div1);
 
     var div2 = document.createElement('div');
-    div2.innerHTML = `<img src=${this.opponentCard.frontImage}>`
+    div2.innerHTML = `<img src=${opponentImage}>`
     div2.setAttribute('class', 'card');
     document.getElementById('opponent-hand').appendChild(div2);
+
+    if (!displayOnly){
+      this.determineRound();
+    }
     
   }
+
+  war (){
+    this.warPile.unshift(this.playerCard, this.opponentCard)
+    this.warPileEmpty = false;
+    this.dealNextCards(false, false, true);
+    this.warPile.unshift(this.playerCard, this.opponentCard)
+    this.dealNextCards(false, true);
+  }
+
+  depositWarPile (card) {
+    this.playerDeck.unshift(card);
+  }
+
   determineRound(){
+    let message = document.getElementById('message-display');
+    let playerCardCount = document.getElementById('player-card-count');
+    let opponentCardCount = document.getElementById('opponent-card-count');
+    playerCardCount.innerHTML = `Card Count: ${this.playerDeck.length}`;
+    opponentCardCount.innerHTML = `Card Count: ${this.opponentDeck.length}`;
     if (this.playerCard.power > this.opponentCard.power){
-      console.log("player wins round with their ", this.playerCard.name );
+      message.innerHTML = 'Player wins';
+      if (!this.warPileEmpty){
+        this.playerDeck.unshift(...this.warPile);
+        this.warPile = [];
+        this.warPileEmpty = true;
+      }
       this.playerDeck.unshift(this.playerCard);
       this.playerDeck.unshift(this.opponentCard);
-      console.log('new player deck after win:', this.playerDeck);
-      console.log('new opponent deck:', this.opponentDeck);
+
     } else if (this.playerCard.power < this.opponentCard.power){
-      console.log('opponent wins round with their ', this.opponentCard.name);
+      message.innerHTML = 'Opponent wins';
+      if (!this.warPileEmpty){
+        this.opponentDeck.unshift(...this.warPile);
+        this.warPile = [];
+        this.warPileEmpty = true;
+      }
       this.opponentDeck.unshift(this.opponentCard);
       this.opponentDeck.unshift(this.playerCard);
-      console.log('new opponent deck after win:', this.opponentDeck);
+    } else{
+      message.innerHTML = 'WAR!';
+      this.war()
     }
 
-    
+  
+  
+  console.log('player deck count: ', this.playerDeck.length);
+  console.log(this.playerDeck);
+
+  console.log('opponent deck count: ', this.opponentDeck.length);
+  console.log(this.opponentDeck);
   }
 
+}
+
+function clearUI (){
+  let clearDiv1 = document.getElementById('hand');
+  let clearDiv2 = document.getElementById('opponent-hand');
+  let clearMessage = document.getElementById('message-display');
+  clearDiv1.innerHTML = '';
+  clearDiv2.innerHTML = '';
+  clearMessage.innerHTML = '';
 }
 
 const deck1 = new Deck();
