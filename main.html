@@ -6,6 +6,8 @@
   </head>
   <body>
     
+    <div id="player-card-count" class="card-count">Cards In Deck:</div>
+    <img class="card-button" onclick="deck1.dealNextCards()" id="deal-button" src="KIN's_Playing_Cards/KIN's_Playing_Cards/Back_1.png">
     <div class="table">
       <div class="hand" id="hand">
         
@@ -13,15 +15,15 @@
       </div>
       
     </div>
-    <div id="player-card-count">cards:</div>
     <div class="Ui">
-      <div>
-        <button onclick="deck1.dealNextCards()">ADD</button>
-        <button onclick="deck1.determineRound()">NEXT</button>
+      <div class="buttons">
+        
+        <button onclick="resetGame()" class="hide-button" id="reset-button">RESET</button>
       </div>
-      <h2 id="message-display">Game Text Here</h2>
+      <p id="message-display" class="message-display">WAR</p>
     </div>
-    <div id="opponent-card-count">cards:</div>
+    <div id="opponent-card-count" class="card-count">Cards In Deck:</div>
+    <img class="card-button" src="KIN's_Playing_Cards/KIN's_Playing_Cards/Back_1.png">
     <div class="opponent-table">
       <div class="hand" id="opponent-hand">
         

@@ -20,8 +20,8 @@ class Deck{
     this.shuffle();
     this.playerDeck = [];
     this.opponentDeck = [];
-    this.playerCard = undefined;
-    this.opponentCard = undefined;
+    this.playerCard;
+    this.opponentCard;
     this.warPile = [];
     this.warPileEmpty = true;
     this.splitDeck();
@@ -52,6 +52,8 @@ class Deck{
     }
   }
 
+
+
   shuffle(){
     const deck = this.deck;
     let m = deck.length;
@@ -80,12 +82,35 @@ class Deck{
     if (clear){
       clearUI();
     }
+    if (this.playerDeck.length === 0){
+      this.gameOver('LOSE');
+      return;
+    }
+    if (this.opponentDeck.length === 0){
+      this.gameOver('WIN');
+      return;
+    }
     
     this.playerCard = this.playerDeck.pop();
-    console.log("player card: ", this.playerCard);
+    console.log("Cards In Deck: ", this.playerCard);
     this.opponentCard = this.opponentDeck.pop();
-    console.log("opponent card: ",this.opponentCard);
+    console.log("Cards In Deck: ",this.opponentCard);
     this.displayRoud(front, displayOnly);
+  }
+
+  gameOver(outcome){
+    let message = document.getElementById('message-display');
+    let resetButton = document.getElementById('reset-button');
+    let dealButton = document.getElementById('deal-button');
+    resetButton.classList.toggle('hide-button');
+    dealButton.classList.toggle('hide-button');
+    if(outcome === 'LOSE'){
+      clearUI();
+      message.innerHTML = 'You Lose!'
+    } else{
+      clearUI();
+      message.innerHTML = 'You WIN!'
+    }
   }
 
 
@@ -130,10 +155,10 @@ class Deck{
     let message = document.getElementById('message-display');
     let playerCardCount = document.getElementById('player-card-count');
     let opponentCardCount = document.getElementById('opponent-card-count');
-    playerCardCount.innerHTML = `Card Count: ${this.playerDeck.length}`;
-    opponentCardCount.innerHTML = `Card Count: ${this.opponentDeck.length}`;
+    playerCardCount.innerHTML = `Cards In Deck: ${this.playerDeck.length}`;
+    opponentCardCount.innerHTML = `Cards In Deck: ${this.opponentDeck.length}`;
     if (this.playerCard.power > this.opponentCard.power){
-      message.innerHTML = 'Player wins';
+      message.innerHTML = 'You win this round';
       if (!this.warPileEmpty){
         this.playerDeck.unshift(...this.warPile);
         this.warPile = [];
@@ -143,7 +168,7 @@ class Deck{
       this.playerDeck.unshift(this.opponentCard);
 
     } else if (this.playerCard.power < this.opponentCard.power){
-      message.innerHTML = 'Opponent wins';
+      message.innerHTML = 'Opponent wins this round';
       if (!this.warPileEmpty){
         this.opponentDeck.unshift(...this.warPile);
         this.warPile = [];
@@ -176,7 +201,17 @@ function clearUI (){
   clearMessage.innerHTML = '';
 }
 
-const deck1 = new Deck();
+let deck1 = new Deck();
+
+function resetGame(){
+  let message = document.getElementById('message-display');
+  let resetButton = document.getElementById('reset-button');
+  let dealButton = document.getElementById('deal-button');
+  resetButton.classList.toggle('hide-button');
+  dealButton.classList.toggle('hide-button');
+  message.innerHTML = 'WAR';
+  deck1 = new Deck();
+}
 
 
 

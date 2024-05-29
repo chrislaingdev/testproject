@@ -35,6 +35,14 @@ body {
   
 }
 
+.card-button{
+  image-rendering: pixelated;
+  width: 100px;
+  box-shadow: 5px 10px 8px;
+  
+}
+
+
 
 .card img{
   image-rendering: pixelated;
@@ -50,6 +58,23 @@ body {
   box-shadow: 5px 10px 8px;
 }
 
+.card-count{
+  font-size: 30px;
+}
+
+.message-display {
+  font-size: 50px;
+}
+
+.hide-button{
+  visibility: hidden;
+}
+
+
+.buttons{
+  display: flex;
+  flex-direction: column;
+}
 
 .Ui {
   border-style: inset;
